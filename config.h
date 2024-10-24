@@ -20,7 +20,7 @@ static const char *colors[][3]      = {
 };
 
 /* tagging */
-static const char *tags[] = { "", "", "󰨞", "󰭹", "", "", "7", "8", "9" };
+static const char *tags[] = { "", "", "󰨞", "󰭹", "", "6", "7", "8", "9" };
 
 static const Rule rules[] = {
 	/* xprop(1):
@@ -60,7 +60,7 @@ static const Layout layouts[] = {
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
 static const char *termcmd[]  = { "kitty", NULL };
-static const char *chromecmd[]  = { "google-chrome-stable", NULL };
+static const char *chromecmd[]  = { "google-chrome-beta", NULL };
 static const char *trayer[] = {"/home/nexus/Sh/trayer.sh", NULL};
 static const Key keys[] = {
 	/* modifier                     key        function        argument */
