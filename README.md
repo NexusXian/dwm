@@ -19,7 +19,7 @@
 #### 安装步骤
 
 ```shell
-git clone git@github.com:NexusXian/picom.git
+git clone git@github.com:NexusXian/dwm.git
 cd dwm
 sudo make clean install
 ```
