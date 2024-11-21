@@ -41,7 +41,7 @@
 #endif /* XINERAMA */
 #include <X11/Xft/Xft.h>
 #include <X11/extensions/Xrender.h>
-
+#include <X11/XF86keysym.h>
 #include "drw.h"
 #include "util.h"
 
@@ -291,6 +291,50 @@ static Window root, wmcheckwin;
 
 /* compile-time check if all tags fit into an unsigned int bit array. */
 struct NumTags { char limitexceeded[LENGTH(tags) > 31 ? -1 : 1]; };
+
+void
+focusdir(const Arg *arg) {
+    Client *c, *next = NULL;
+    int x, y, distance, mindist = INT_MAX;
+
+    if (!selmon->sel)
+        return;
+
+    x = selmon->sel->x + selmon->sel->w / 2;
+    y = selmon->sel->y + selmon->sel->h / 2;
+
+    for (c = selmon->clients; c; c = c->next) {
+        if (!ISVISIBLE(c) || c == selmon->sel)
+            continue;
+
+        int cx = c->x + c->w / 2;
+        int cy = c->y + c->h / 2;
+
+        switch (arg->i) {
+        case FOCUS_UP:
+            if (cy >= y) continue;
+            break;
+        case FOCUS_DOWN:
+            if (cy <= y) continue;
+            break;
+        case FOCUS_LEFT:
+            if (cx >= x) continue;
+            break;
+        case FOCUS_RIGHT:
+            if (cx <= x) continue;
+            break;
+        }
+
+        distance = (cx - x) * (cx - x) + (cy - y) * (cy - y);
+        if (distance < mindist) {
+            mindist = distance;
+            next = c;
+        }
+    }
+
+    if (next)
+        focus(next);
+}
 
 /* function implementations */
 void

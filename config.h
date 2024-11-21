@@ -48,6 +48,14 @@ static const Layout layouts[] = {
     {"><>", NULL}, /* no layout function means floating behavior */
     {"[M]", monocle},
 };
+static void focusdir(const Arg *arg);
+
+// 定义方向
+#define FOCUS_UP    0
+#define FOCUS_DOWN  1
+#define FOCUS_LEFT  2
+#define FOCUS_RIGHT 3
+
 
 /* key definitions */
 #define MODKEY Mod4Mask
@@ -76,7 +84,12 @@ static const char *firefoxcmd[] = {"firefox", NULL};
 static const char *trayer[] = {"/home/nexus/Sh/trayer.sh", NULL};
 static const char *wificmd[] = {"/home/nexus/Sh/wifi.sh", NULL};
 static const Key keys[] = {
+
     /* modifier                     key        function        argument */
+    { ControlMask,             XK_Up,       focusdir,   {.i = FOCUS_UP} },
+    { ControlMask,             XK_Down,     focusdir,   {.i = FOCUS_DOWN} },
+    { ControlMask,             XK_Left,     focusdir,   {.i = FOCUS_LEFT} },
+    { ControlMask,             XK_Right,    focusdir,   {.i = FOCUS_RIGHT} },
     {MODKEY, XK_d, spawn, {.v = roficmd}},
     {MODKEY | ShiftMask, XK_z, spawn, {.v = trayer}},
     {MODKEY | ShiftMask, XK_w, spawn, {.v = wificmd}},
