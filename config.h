@@ -81,7 +81,6 @@ static const char *termcmd[] = {"kitty", NULL};
 static const char *roficmd[] = {"/home/nexus/Sh/rofi.sh", NULL};
 static const char *chromecmd[] = {"google-chrome-beta", NULL};
 static const char *firefoxcmd[] = {"firefox", NULL};
-static const char *trayer[] = {"/home/nexus/Sh/trayer.sh", NULL};
 static const char *wificmd[] = {"/home/nexus/Sh/wifi.sh", NULL};
 static const Key keys[] = {
 
@@ -91,7 +90,6 @@ static const Key keys[] = {
     { ControlMask,             XK_Left,     focusdir,   {.i = FOCUS_LEFT} },
     { ControlMask,             XK_Right,    focusdir,   {.i = FOCUS_RIGHT} },
     {MODKEY, XK_d, spawn, {.v = roficmd}},
-    {MODKEY | ShiftMask, XK_z, spawn, {.v = trayer}},
     {MODKEY | ShiftMask, XK_w, spawn, {.v = wificmd}},
     {MODKEY, XK_F2, spawn, {.v = chromecmd}},
     {MODKEY, XK_F3, spawn, {.v = firefoxcmd}},
