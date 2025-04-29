@@ -1,0 +1,77 @@
+--- dwm.c.orig  2024-11-21 12:00:00.000000000 +0000
++++ dwm.c       2024-11-21 12:05:00.000000000 +0000
+@@ -1,6 +1,7 @@
+ #include <X11/Xlib.h>
+ #include <X11/Xatom.h>
+ #include <X11/keysym.h>
++#include <X11/XF86keysym.h>
+ #include <stdio.h>
+ #include <stdlib.h>
+ #include <string.h>
+@@ -1200,6 +1201,58 @@
+     }
+ }
+
++void
++focusdir(const Arg *arg) {
++    Client *c, *next = NULL;
++    int x, y, distance, mindist = INT_MAX;
++
++    if (!selmon->sel)
++        return;
++
++    x = selmon->sel->x + selmon->sel->w / 2;
++    y = selmon->sel->y + selmon->sel->h / 2;
++
++    for (c = selmon->clients; c; c = c->next) {
++        if (!ISVISIBLE(c) || c == selmon->sel)
++            continue;
++
++        int cx = c->x + c->w / 2;
++        int cy = c->y + c->h / 2;
++
++        switch (arg->i) {
++        case FOCUS_UP:
++            if (cy >= y) continue;
++            break;
++        case FOCUS_DOWN:
++            if (cy <= y) continue;
++            break;
++        case FOCUS_LEFT:
++            if (cx >= x) continue;
++            break;
++        case FOCUS_RIGHT:
++            if (cx <= x) continue;
++            break;
++        }
++
++        distance = (cx - x) * (cx - x) + (cy - y) * (cy - y);
++        if (distance < mindist) {
++            mindist = distance;
++            next = c;
++        }
++    }
++
++    if (next)
++        focus(next);
++}
++
+--- config.h.orig      2024-11-21 12:00:00.000000000 +0000
++++ config.h           2024-11-21 12:05:00.000000000 +0000
+@@ -10,6 +10,10 @@
+ static const char normbgcolor[]     = "#222222";
+ static const char normbordercolor[] = "#444444";
+
++/* Focus directions */
++#define FOCUS_UP    0
++#define FOCUS_DOWN  1
++#define FOCUS_LEFT  2
++#define FOCUS_RIGHT 3
++
+ static Key keys[] = {
++    { ControlMask,             XK_Up,       focusdir,   {.i = FOCUS_UP} },
++    { ControlMask,             XK_Down,     focusdir,   {.i = FOCUS_DOWN} },
++    { ControlMask,             XK_Left,     focusdir,   {.i = FOCUS_LEFT} },
++    { ControlMask,             XK_Right,    focusdir,   {.i = FOCUS_RIGHT} },
+ };
+
