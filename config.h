@@ -43,10 +43,12 @@ static const int lockfullscreen =
     1; /* 1 will force focus on the fullscreen window */
 
 static const Layout layouts[] = {
-    /* symbol     arrange function */
-    {"[]=", tile}, /* first entry is default */
-    {"><>", NULL}, /* no layout function means floating behavior */
-    {"[M]", monocle},
+    /* symbol
+     * arrange function */
+
+    {"T", tile},
+    {"F", NULL}, /* no layout function means floating behavior */
+    {"全", monocle},
 };
 static void focusdir(const Arg *arg);
 
@@ -76,6 +78,9 @@ static char dmenumon[2] =
 static const char *dmenucmd[] = {
     "dmenu_run", "-m",      dmenumon, "-fn",    dmenufont, "-nb",     col_gray1,
     "-nf",       col_gray3, "-sb",    col_cyan, "-sf",     col_gray4, NULL};
+static const char scratchpadname[] = "scratchpad";
+static const char *scratchpadcmd[] = {"st", "-t",     scratchpadname,
+                                      "-g", "120x34", NULL};
 static const char *termcmd[] = {"kitty", NULL};
 static const char *roficmd[] = {"/home/nexus/Sh/rofi.sh", NULL};
 static const char *chromecmd[] = {"google-chrome-stable", NULL};
@@ -91,7 +96,8 @@ static const Key keys[] = {
     {ControlMask, XK_Right, focusdir, {.i = FOCUS_RIGHT}},
     {MODKEY, XK_d, spawn, {.v = roficmd}},
     {MODKEY | ShiftMask, XK_w, spawn, {.v = wificmd}},
-    {MODKEY, XK_F2, spawn, {.v = zencmd}},
+    {MODKEY, XK_grave, togglescratch, {.v = scratchpadcmd}},
+    {MODKEY, XK_F2, spawn, {.v = chromecmd}},
     {MODKEY, XK_F3, spawn, {.v = firefoxcmd}},
     {MODKEY, XK_Return, spawn, {.v = termcmd}},
     {MODKEY, XK_b, togglebar, {0}},
