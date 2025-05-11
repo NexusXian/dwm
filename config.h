@@ -46,9 +46,9 @@ static const Layout layouts[] = {
     /* symbol
      * arrange function */
 
-    {"T", tile},
-    {"F", NULL}, /* no layout function means floating behavior */
-    {"全", monocle},
+    {"Tile", tile},
+    {"Float", NULL}, /* no layout function means floating behavior */
+    {"Full", monocle},
 };
 static void focusdir(const Arg *arg);
 
