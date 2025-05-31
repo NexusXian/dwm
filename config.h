@@ -85,8 +85,6 @@ static const char *termcmd[] = {"kitty", NULL};
 static const char *roficmd[] = {"/home/nexus/Sh/rofi.sh", NULL};
 static const char *chromecmd[] = {"google-chrome-stable", NULL};
 static const char *firefoxcmd[] = {"firefox", NULL};
-static const char *zencmd[] = {"zen-browser", NULL};
-static const char *wificmd[] = {"/home/nexus/Sh/wifi.sh", NULL};
 static const Key keys[] = {
 
     /* modifier                     key        function        argument */
@@ -95,7 +93,6 @@ static const Key keys[] = {
     {ControlMask, XK_Left, focusdir, {.i = FOCUS_LEFT}},
     {ControlMask, XK_Right, focusdir, {.i = FOCUS_RIGHT}},
     {MODKEY, XK_d, spawn, {.v = roficmd}},
-    {MODKEY | ShiftMask, XK_w, spawn, {.v = wificmd}},
     {MODKEY, XK_grave, togglescratch, {.v = scratchpadcmd}},
     {MODKEY, XK_F2, spawn, {.v = chromecmd}},
     {MODKEY, XK_F3, spawn, {.v = firefoxcmd}},
